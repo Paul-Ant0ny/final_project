@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Billing Record</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <!-- Main Content Area -->
+    <div class="container mx-auto mt-16 p-6">
+        <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Add Billing Record</h1>
+
+            <form method="post">
+                {% csrf_token %}
+                
+                <!-- Tenant Field -->
+                <div class="mb-4">
+                    <label for="tenant" class="block text-sm font-medium text-gray-700">Select Tenant</label>
+                    {{ form.tenant }}
+                </div>
+
+                <!-- Amount Field -->
+                <div class="mb-4">
+                    <label for="amount" class="block text-sm font-medium text-gray-700">Amount</label>
+                    <input type="number" name="amount" id="amount" class="mt-1 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter the billing amount" required>
+                </div>
+
+                <!-- Billing Date Field -->
+                <div class="mb-4">
+                    <label for="billing_date" class="block text-sm font-medium text-gray-700">Billing Date</label>
+                    <input type="date" name="billing_date" id="billing_date" class="mt-1 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w-full bg-green-500 text-white p-3 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500">Add Billing</button>
+            </form>
+
+        </div>
+    </div>
+
+</body>
+</html>

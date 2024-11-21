@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-r from-blue-500 to-teal-500 font-sans">
+
+    <!-- Main Content Area -->
+    <div class="container mx-auto px-6 py-12">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-extrabold text-white leading-tight mb-6">Welcome to the Real Estate Management System</h1>
+            <p class="text-white text-lg">Your one-stop solution to manage tenants, properties, billing, and payments seamlessly.</p>
+        </div>
+
+        <!-- Buttons Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Button to add tenant -->
+            <div class="p-6 bg-white rounded-lg shadow-lg hover:shadow-2xl transition ease-in-out duration-300">
+                <a href="{% url 'add_tenant' %}" class="w-full text-center text-white py-4 px-6 bg-indigo-600 rounded-lg text-xl hover:bg-indigo-700 transition duration-300">Add Tenant</a>
+            </div>
+
+            <!-- Button to add property -->
+            <div class="p-6 bg-white rounded-lg shadow-lg hover:shadow-2xl transition ease-in-out duration-300">
+                <a href="{% url 'add_property' %}" class="w-full text-center text-white py-4 px-6 bg-green-600 rounded-lg text-xl hover:bg-green-700 transition duration-300">Add Property</a>
+            </div>
+
+            <!-- Button to view tenants -->
+            <div class="p-6 bg-white rounded-lg shadow-lg hover:shadow-2xl transition ease-in-out duration-300">
+                <a href="{% url 'tenant_list' %}" class="w-full text-center text-white py-4 px-6 bg-yellow-600 rounded-lg text-xl hover:bg-yellow-700 transition duration-300">View Tenants</a>
+            </div>
+
+            <!-- Button to view properties -->
+            <div class="p-6 bg-white rounded-lg shadow-lg hover:shadow-2xl transition ease-in-out duration-300">
+                <a href="{% url 'property_list' %}" class="w-full text-center text-white py-4 px-6 bg-purple-600 rounded-lg text-xl hover:bg-purple-700 transition duration-300">View Properties</a>
+            </div>
+
+            <!-- Button to add billing -->
+            <div class="p-6 bg-white rounded-lg shadow-lg hover:shadow-2xl transition ease-in-out duration-300">
+                <a href="{% url 'add_billing' %}" class="w-full text-center text-white py-4 px-6 bg-orange-600 rounded-lg text-xl hover:bg-orange-700 transition duration-300">Add Billing</a>
+            </div>
+
+            <!-- Button to view billing -->
+            <div class="p-6 bg-white rounded-lg shadow-lg hover:shadow-2xl transition ease-in-out duration-300">
+                <a href="{% url 'billing_list' %}" class="w-full text-center text-white py-4 px-6 bg-red-600 rounded-lg text-xl hover:bg-red-700 transition duration-300">View Billing</a>
+            </div>
+
+            <!-- Button to add payment -->
+            <div class="p-6 bg-white rounded-lg shadow-lg hover:shadow-2xl transition ease-in-out duration-300">
+                <a href="{% url 'add_payment' %}" class="w-full text-center text-white py-4 px-6 bg-teal-600 rounded-lg text-xl hover:bg-teal-700 transition duration-300">Add Payment</a>
+            </div>
+
+            <!-- Button to log out -->
+            <div class="p-6 bg-white rounded-lg shadow-lg hover:shadow-2xl transition ease-in-out duration-300">
+                <a href="{% url 'logout' %}" class="w-full text-center text-white py-4 px-6 bg-gray-600 rounded-lg text-xl hover:bg-gray-700 transition duration-300">Log Out</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Tenant</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-blue-50 font-sans">
+
+    <!-- Main Content Area -->
+    <div class="container mx-auto mt-16 p-6">
+        <div class="max-w-md mx-auto bg-white p-8 rounded-3xl shadow-xl">
+            <h1 class="text-3xl font-semibold text-gray-800 text-center mb-6">Add New Tenant</h1>
+            
+            <form method="post">
+                {% csrf_token %}
+                
+                <!-- Tenant Name Field -->
+                <div class="mb-6">
+                    <label for="tenant_name" class="block text-sm font-medium text-gray-700">Tenant Name</label>
+                    <input type="text" name="tenant_name" id="tenant_name" class="mt-1 p-4 w-full border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Enter tenant's full name" required>
+                </div>
+
+                <!-- Tenant Email Field -->
+                <div class="mb-6">
+                    <label for="tenant_email" class="block text-sm font-medium text-gray-700">Tenant Email</label>
+                    <input type="email" name="tenant_email" id="tenant_email" class="mt-1 p-4 w-full border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Enter tenant's email" required>
+                </div>
+
+                <!-- Tenant Phone Field -->
+                <div class="mb-6">
+                    <label for="tenant_phone" class="block text-sm font-medium text-gray-700">Tenant Phone Number</label>
+                    <input type="tel" name="tenant_phone" id="tenant_phone" class="mt-1 p-4 w-full border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Enter tenant's phone number" required>
+                </div>
+
+                <!-- Tenant Address Field -->
+                <div class="mb-6">
+                    <label for="tenant_address" class="block text-sm font-medium text-gray-700">Tenant Address</label>
+                    <textarea name="tenant_address" id="tenant_address" rows="3" class="mt-1 p-4 w-full border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Enter tenant's address" required></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w-full bg-indigo-600 text-white p-3 rounded-xl shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300">Add Tenant</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
