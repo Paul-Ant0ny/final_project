@@ -125,3 +125,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'login'  
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]  # Ensure this is defined
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Change this if using a different SMTP server
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'paulantony360@gmail.com'  # Replace with your email address
+EMAIL_HOST_PASSWORD = '2003Password18.'  # Replace with your email password (use an app password if 2FA is enabled)
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

@@ -1,0 +1,18 @@
+<!-- templates/email/payment_notification.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Notification</title>
+</head>
+<body>
+    <h2>Payment Received</h2>
+    <p>Dear {{ tenant_name }},</p>
+    <p>We have successfully received your payment of <strong>${{ payment_amount }}</strong> on <strong>{{ payment_date }}</strong>.</p>
+    <p>Thank you for your prompt payment.</p>
+    <p>Best regards,</p>
+    <p>Real Estate Management Team</p>
+</body>
+</html>
