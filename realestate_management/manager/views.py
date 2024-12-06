@@ -19,12 +19,25 @@ from django.contrib.auth import get_user_model
 def landing_page(request):
     return render(request, 'landing.html')
 
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()  # Save the new user to the database
-            messages.success(request, 'Your account has been created successfully! You can now log in.')
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')  # Capture the email from the form
+
+            # Send welcome email
+            send_mail(
+                subject='Welcome to Real Estate Management System',
+                message=f'Hi {username},\n\nThank you for registering with our platform. We are excited to have you onboard!\n\nBest regards,\nReal Estate Management Team.',
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[email],
+                fail_silently=False,
+            )
+
+            messages.success(request, 'Your account has been created successfully! A welcome email has been sent to your email address.')
             return redirect('login')  # Redirect to login page
         else:
             messages.error(request, 'There was an issue with your registration. Please correct the errors below.')
@@ -47,6 +60,7 @@ def user_login(request):
             messages.error(request, 'Invalid username or password.')
     return render(request, 'registration/login.html')
 
+
 # Logout view
 def user_logout(request):
     logout(request)
@@ -66,8 +80,18 @@ def add_tenant(request):
     if request.method == "POST":
         form = TenantForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Tenant added successfully.')
+            tenant = form.save()
+
+            # Send email notification to the tenant
+            send_mail(
+                subject='Welcome to Real Estate Management',
+                message=f'Hello {tenant.name},\n\nYou have been successfully added as a tenant in our system. Please feel free to contact us for any inquiries.\n\nBest regards,\nReal Estate Management Team.',
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[tenant.email],  # Ensure the Tenant model has an email field
+                fail_silently=False,
+            )
+
+            messages.success(request, 'Tenant added successfully and notification sent.')
             return redirect('tenant_list')
     else:
         form = TenantForm()
@@ -108,8 +132,18 @@ def add_billing(request):
     if request.method == "POST":
         form = BillingForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Billing record added successfully.')
+            billing = form.save()
+
+            # Notify tenant of billing
+            send_mail(
+                subject='New Billing Statement',
+                message=f'Dear {billing.tenant.name},\n\nA new billing statement has been generated for your account. Please log in to your portal to view the details.\n\nBest regards,\nReal Estate Management Team.',
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[billing.tenant.email],  # Ensure Billing model links to a Tenant with an email field
+                fail_silently=False,
+            )
+
+            messages.success(request, 'Billing record added successfully and tenant notified.')
             return redirect('billing_list')
     else:
         form = BillingForm()
@@ -129,8 +163,17 @@ def add_payment(request):
     if request.method == 'POST':
         form = PaymentForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Payment recorded successfully.')
+            payment = form.save()
+
+            # Notify tenant of payment receipt
+            send_payment_notification(
+                user_email=payment.tenant.email,  # Ensure the Payment model links to a Tenant with an email field
+                tenant_name=payment.tenant.name,
+                payment_amount=payment.amount,
+                payment_date=payment.date,
+            )
+
+            messages.success(request, 'Payment recorded successfully and tenant notified.')
             return redirect('billing_list')
     else:
         form = PaymentForm()
@@ -144,23 +187,3 @@ def send_payment_notification(user_email, tenant_name, payment_amount, payment_d
     from_email = settings.DEFAULT_FROM_EMAIL
 
     send_mail(subject, message, from_email, [user_email])
-
-# View for making a payment and sending email notification
-def add_payment(request):
-    if request.method == 'POST':
-        # Example form processing code (you can adapt it to your actual form logic)
-        tenant_name = request.POST.get('tenant_name')
-        payment_amount = request.POST.get('payment_amount')
-        payment_date = request.POST.get('payment_date')
-        tenant_email = request.POST.get('tenant_email')  # Assuming you have the email in the form data
-
-        # Send the payment notification email
-        send_payment_notification(tenant_email, tenant_name, payment_amount, payment_date)
-
-        messages.success(request, 'Payment recorded and notification sent successfully!')
-        return redirect('billing_list')  # Redirect after the payment
-
-    else:
-        # Render the payment form (your existing logic)
-        form = PaymentForm()  # Assuming you have a PaymentForm
-        return render(request, 'manager/add_payment.html', {'form': form})

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -131,9 +132,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]  # Ensure this is defined
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Change this if using a different SMTP server
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'paulantony360@gmail.com'  # Replace with your email address
-EMAIL_HOST_PASSWORD = '2003Password18.'  # Replace with your email password (use an app password if 2FA is enabled)
+EMAIL_HOST_USER = config('paulantony360@gmail.com', default='paulanton316@gmail.com')  # Fetched from .env
+EMAIL_HOST_PASSWORD = config('2003password18', default= '2003Password18.')  # Fetched from .env
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

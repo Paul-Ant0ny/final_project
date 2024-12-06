@@ -1,1 +1,3 @@
 realestate
+# Ignore .env file
+.env
